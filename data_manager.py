@@ -1,6 +1,7 @@
+import os
 import requests
 SHEET_HEADERS = {
-    "Authorization": "Bearer asf3er24t42wfwnaduq3hdnaefqewd",
+    "Authorization": os.environ["SHEET_AUTHORIZATION"],
     "Content-Type": "application/json",
 }
 SHEET_ENDPOINT = "https://api.sheety.co/be61e1838b9166a7c340361536e14c49/flightDeals/prices"
