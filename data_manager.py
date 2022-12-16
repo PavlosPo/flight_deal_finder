@@ -3,7 +3,7 @@ import requests
 
 SHEET_ENDPOINT = "https://api.sheety.co/be61e1838b9166a7c340361536e14c49/flightDeals/prices"
 SHEET_HEADERS = {
-    "Authorization": "Bearer #######################",
+    "Authorization": "Bearer #################################",
     "Content-Type": "application/json",
 }
 
@@ -22,8 +22,11 @@ class DataManager:
         self.data = response.json()['prices']
 
     # Updates data in each city/id
-    def update_column_data(self):
+    def update_data(self, updated_data: list):
         # Get the ids so we can update the corresponding id
-        ids = self.data['id']
-        response = requests.put(url=SHEET_ENDPOINT, headers=SHEET_HEADERS)
-        pass
+        # Updates each row of data per loop
+        for current_city in updated_data:
+            current_city_id = current_city['id']
+            data_to_upload = {'price': current_city}  # Formats it the way Sheety wants to.
+            requests.put(url=f"{SHEET_ENDPOINT}/{current_city_id}", json=data_to_upload, headers=SHEET_HEADERS)
+
