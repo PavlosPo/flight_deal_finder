@@ -1,8 +1,9 @@
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 import os
+from pprint import pprint
 
 from data_manager import DataManager
 
-print(os.getenv("SHEET_AUTORIZATION"))
-sheet_data = DataManager()
-print(sheet_data.data)
+sheet = DataManager()
+sheet_data = sheet.data
+pprint(sheet_data)
