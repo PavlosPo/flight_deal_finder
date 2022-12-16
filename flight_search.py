@@ -1,7 +1,6 @@
 # generates the corresponding IATA Codes for each City.
 import requests
 import os
-from data_manager import DataManager
 
 KIWI_ENDPOINT = "https://api.tequila.kiwi.com/locations/query"
 KIWI_PARAMETERS = {

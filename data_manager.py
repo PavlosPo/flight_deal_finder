@@ -45,6 +45,14 @@ class DataManager:
             data_to_upload = {'price': current_city_data}  # Formats it the way Sheety wants to.
             requests.put(url=f"{SHEET_ENDPOINT}/{current_city_id}", json=data_to_upload, headers=SHEET_HEADERS)
 
+    # Updates and Uploads the city IATA codes from KIWI Api
     def upload_city_codes(self):
-
-        pass
+        # Get the city codes via FlightSearch Class
+        city_code_generator = FlightSearch()  # class for finding the iata code
+        for index, current_city in enumerate(self.data):
+            city_id = current_city['id']  # Id for the city
+            city_name = current_city['city']  # The city name to find the iata code
+            current_city['iataCode'] = city_code_generator.get_destination_code(city_name)  # Get the iata code
+            response = requests.put(url=F"{SHEET_ENDPOINT}/{city_id}", params=current_city, headers=SHEET_HEADERS)
+            response.raise_for_status()
+            self.data[index] = current_city  # Update it also to the class
