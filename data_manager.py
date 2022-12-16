@@ -1,10 +1,11 @@
 import os
+
 import requests
 from flight_search import FlightSearch
 
 SHEET_ENDPOINT = "https://api.sheety.co/be61e1838b9166a7c340361536e14c49/flightDeals/prices"
 SHEET_HEADERS = {
-    "Authorization": os.getenv('SHEET_AUTHORIZATION'),
+    "Authorization": os.getenv('SHEETAUTHORIZATION'),
     "Content-Type": "application/json",
 }
 
@@ -17,6 +18,7 @@ class DataManager:
         self.get_data()  # Fetch the online dataset
         self.update_empty_iotcodes()  # Updates the data argument with str 'TESTING'
         self.upload_data()  # Uploads all data if id is not specified, else only the specified id
+        self.upload_city_codes()  # Retrives and uploads the IATA Codes
 
     # Data fetch
     def get_data(self):

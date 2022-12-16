@@ -1,7 +1,7 @@
 # generates the corresponding IATA Codes for each City.
-import requests
 import os
 
+import requests
 KIWI_ENDPOINT = "https://api.tequila.kiwi.com/locations/query"
 KIWI_PARAMETERS = {
     "term": None,  # We need to find it
@@ -9,7 +9,7 @@ KIWI_PARAMETERS = {
     "limit": 1
 }
 KIWI_HEADERS = {
-    "apikey": os.getenv('KIWI_API'),
+    "apikey": os.getenv('KIWI_API')
 }
 
 
