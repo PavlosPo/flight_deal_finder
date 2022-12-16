@@ -3,9 +3,9 @@ import os
 from pprint import pprint
 from flight_search import FlightSearch
 from data_manager import DataManager
+from flight_search import FlightSearch
 
-sheet = DataManager()
-sheet_data = sheet.data
-# sheet.update_data()
-sheet = FlightSearch()
+# sheet = DataManager()
+# pprint(sheet.data)
 
+codes = FlightSearch()

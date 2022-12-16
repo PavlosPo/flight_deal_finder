@@ -1,25 +1,24 @@
-# It generates the city's code. Saves it on the google sheet online.
+# generates the corresponding IATA Codes for each City.
+import requests
+import os
 from data_manager import DataManager
+
+KIWI_ENDPOINT = "https://api.tequila.kiwi.com/locations/query"
+KIWI_PARAMETERS = {
+    "term": None,  # We need to find it
+    "location_types": "city",
+    "limit": 1
+}
+KIWI_HEADERS = {
+    "apikey": os.getenv('KIWI_API'),
+}
 
 
 class FlightSearch:
-    #This class is responsible for talking to the Flight Search API.
-    def __init__(self):
-        self.check_if_empyt()
-        pass
-
-    # Checks if the city code in the google sheet is empty or not
-    def check_if_empyt(self):
-        # Retrieve data
-        current_data = DataManager().data  # List of Cities
-
-        # Create dictionary of data
-        for index, current_city in enumerate(current_data):
-            if current_city['iataCode'] == '' or current_city['iataCode'] is None:
-                # Current city has not a iataCode
-                current_data[index]['iataCode'] = "TESTING"
-        print(current_data)
-        pass
-
-    pass
-
+    # This class is responsible for talking to the Flight Search API.
+    def get_destination_code(self, city_name) -> str:
+        KIWI_PARAMETERS['term'] = city_name
+        response = requests.get(url=KIWI_ENDPOINT, params=KIWI_PARAMETERS, headers=KIWI_HEADERS)
+        response.raise_for_status()
+        city_code = response.json()['locations'][0]['code']
+        return city_code
